@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duopay.core.order.entity.OrderPay" >
+  
+  <sql id="table" >
+    order_pay
+  </sql>
+  
+  <sql id="all_columns" >
+    order_id, merchant_order_id, merchant_id, payment_way, payer_id, currency, order_amount, 
+    settle_amount, paid_amount, payment_service_code, order_status, settle_date, settle_batch_no, 
+    settle_status, balance_status, account_status, return_url, notify_url, input_charset, 
+    version, sign_type, language, ext, notify_status, lock_status, refund_status, order_time, 
+    effective_time, paid_time, notify_time, cancel_time, create_time, last_deal_time
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultType="com.duopay.core.order.entity.OrderPay" parameterType="java.lang.String" >
+    select <include refid="all_columns" />
+    from <include refid="table" />
+    where order_id = #{orderId,jdbcType=CHAR}
+  </select>
+  
+  <select id="list" resultType="com.duopay.core.order.entity.OrderPay" parameterType="map" >
+    select <include refid="all_columns" />
+    from <include refid="table" />
+    <where >
+      <if test="orderId != null" >
+        and order_id = #{orderId,jdbcType=CHAR}
+      </if>
+      <if test="merchantOrderId != null" >
+        and merchant_order_id = #{merchantOrderId,jdbcType=VARCHAR}
+      </if>
+      <if test="merchantId != null" >
+        and merchant_id = #{merchantId,jdbcType=VARCHAR}
+      </if>
+      <if test="paymentWay != null" >
+        and payment_way = #{paymentWay,jdbcType=CHAR}
+      </if>
+      <if test="payerId != null" >
+        and payer_id = #{payerId,jdbcType=CHAR}
+      </if>
+      <if test="currency != null" >
+        and currency = #{currency,jdbcType=CHAR}
+      </if>
+      <if test="orderAmount != null" >
+        and order_amount = #{orderAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="settleAmount != null" >
+        and settle_amount = #{settleAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="paidAmount != null" >
+        and paid_amount = #{paidAmount,jdbcType=DECIMAL}
+      </if>
+      <if test="paymentServiceCode != null" >
+        and payment_service_code = #{paymentServiceCode,jdbcType=CHAR}
+      </if>
+      <if test="orderStatus != null" >
+        and order_status = #{orderStatus,jdbcType=CHAR}
+      </if>
+      <if test="settleDate != null" >
+        and settle_date = #{settleDate,jdbcType=DATE}
+      </if>
+      <if test="settleDateStart != null" >
+        and settle_date <![CDATA[ >= ]]> #{settleDateStart,jdbcType=DATE}
+      </if>
+      <if test="settleDateEnd != null" >
+        and settle_date <![CDATA[ <= ]]> #{settleDateEnd,jdbcType=DATE}
+      </if>
+      <if test="settleBatchNo != null" >
+        and settle_batch_no = #{settleBatchNo,jdbcType=CHAR}
+      </if>
+      <if test="settleStatus != null" >
+        and settle_status = #{settleStatus,jdbcType=CHAR}
+      </if>
+      <if test="balanceStatus != null" >
+        and balance_status = #{balanceStatus,jdbcType=CHAR}
+      </if>
+      <if test="accountStatus != null" >
+        and account_status = #{accountStatus,jdbcType=CHAR}
+      </if>
+      <if test="returnUrl != null" >
+        and return_url = #{returnUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="notifyUrl != null" >
+        and notify_url = #{notifyUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="inputCharset != null" >
+        and input_charset = #{inputCharset,jdbcType=CHAR}
+      </if>
+      <if test="version != null" >
+        and version = #{version,jdbcType=CHAR}
+      </if>
+      <if test="signType != null" >
+        and sign_type = #{signType,jdbcType=CHAR}
+      </if>
+      <if test="language != null" >
+        and language = #{language,jdbcType=CHAR}
+      </if>
+      <if test="ext != null" >
+        and ext = #{ext,jdbcType=VARCHAR}
+      </if>
+      <if test="notifyStatus != null" >
+        and notify_status = #{notifyStatus,jdbcType=CHAR}
+      </if>
+      <if test="lockStatus != null" >
+        and lock_status = #{lockStatus,jdbcType=CHAR}
+      </if>
+      <if test="refundStatus != null" >
+        and refund_status = #{refundStatus,jdbcType=CHAR}
+      </if>
+      <if test="orderTime != null" >
+        and order_time = #{orderTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="orderTimeStart != null" >
+        and order_time <![CDATA[ >= ]]> #{orderTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="orderTimeEnd != null" >
+        and order_time <![CDATA[ <= ]]> #{orderTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="effectiveTime != null" >
+        and effective_time = #{effectiveTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="effectiveTimeStart != null" >
+        and effective_time <![CDATA[ >= ]]> #{effectiveTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="effectiveTimeEnd != null" >
+        and effective_time <![CDATA[ <= ]]> #{effectiveTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paidTime != null" >
+        and paid_time = #{paidTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paidTimeStart != null" >
+        and paid_time <![CDATA[ >= ]]> #{paidTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="paidTimeEnd != null" >
+        and paid_time <![CDATA[ <= ]]> #{paidTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="notifyTime != null" >
+        and notify_time = #{notifyTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="notifyTimeStart != null" >
+        and notify_time <![CDATA[ >= ]]> #{notifyTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="notifyTimeEnd != null" >
+        and notify_time <![CDATA[ <= ]]> #{notifyTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cancelTime != null" >
+        and cancel_time = #{cancelTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cancelTimeStart != null" >
+        and cancel_time <![CDATA[ >= ]]> #{cancelTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="cancelTimeEnd != null" >
+        and cancel_time <![CDATA[ <= ]]> #{cancelTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTime != null" >
+        and create_time = #{createTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeStart != null" >
+        and create_time <![CDATA[ >= ]]> #{createTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="createTimeEnd != null" >
+        and create_time <![CDATA[ <= ]]> #{createTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+      <if test="lastDealTime != null" >
+        and last_deal_time = #{lastDealTime,jdbcType=TIMESTAMP}
+      </if>
+      <if test="lastDealTimeStart != null" >
+        and last_deal_time <![CDATA[ >= ]]> #{lastDealTimeStart,jdbcType=TIMESTAMP}
+      </if>
+      <if test="lastDealTimeEnd != null" >
+        and last_deal_time <![CDATA[ <= ]]> #{lastDealTimeEnd,jdbcType=TIMESTAMP}
+      </if>
+    </where>
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.duopay.core.order.entity.OrderPay" >
+    update <include refid="table" />
+    <set >
+      <if test="merchantOrderId != null" >
+        merchant_order_id = #{merchantOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentWay != null" >
+        payment_way = #{paymentWay,jdbcType=CHAR},
+      </if>
+      <if test="payerId != null" >
+        payer_id = #{payerId,jdbcType=CHAR},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=CHAR},
+      </if>
+      <if test="orderAmount != null" >
+        order_amount = #{orderAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="settleAmount != null" >
+        settle_amount = #{settleAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paidAmount != null" >
+        paid_amount = #{paidAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="paymentServiceCode != null" >
+        payment_service_code = #{paymentServiceCode,jdbcType=CHAR},
+      </if>
+      <if test="orderStatus != null" >
+        order_status = #{orderStatus,jdbcType=CHAR},
+      </if>
+      <if test="settleDate != null" >
+        settle_date = #{settleDate,jdbcType=DATE},
+      </if>
+      <if test="settleBatchNo != null" >
+        settle_batch_no = #{settleBatchNo,jdbcType=CHAR},
+      </if>
+      <if test="settleStatus != null" >
+        settle_status = #{settleStatus,jdbcType=CHAR},
+      </if>
+      <if test="balanceStatus != null" >
+        balance_status = #{balanceStatus,jdbcType=CHAR},
+      </if>
+      <if test="accountStatus != null" >
+        account_status = #{accountStatus,jdbcType=CHAR},
+      </if>
+      <if test="returnUrl != null" >
+        return_url = #{returnUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyUrl != null" >
+        notify_url = #{notifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="inputCharset != null" >
+        input_charset = #{inputCharset,jdbcType=CHAR},
+      </if>
+      <if test="version != null" >
+        version = #{version,jdbcType=CHAR},
+      </if>
+      <if test="signType != null" >
+        sign_type = #{signType,jdbcType=CHAR},
+      </if>
+      <if test="language != null" >
+        language = #{language,jdbcType=CHAR},
+      </if>
+      <if test="ext != null" >
+        ext = #{ext,jdbcType=VARCHAR},
+      </if>
+      <if test="notifyStatus != null" >
+        notify_status = #{notifyStatus,jdbcType=CHAR},
+      </if>
+      <if test="lockStatus != null" >
+        lock_status = #{lockStatus,jdbcType=CHAR},
+      </if>
+      <if test="refundStatus != null" >
+        refund_status = #{refundStatus,jdbcType=CHAR},
+      </if>
+      <if test="orderTime != null" >
+        order_time = #{orderTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="effectiveTime != null" >
+        effective_time = #{effectiveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paidTime != null" >
+        paid_time = #{paidTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="notifyTime != null" >
+        notify_time = #{notifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelTime != null" >
+        cancel_time = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastDealTime != null" >
+        last_deal_time = #{lastDealTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=CHAR}
+  </update>
+  
+  <insert id="insert" parameterType="com.duopay.core.order.entity.OrderPay" >
+    insert into order_pay (order_id, merchant_order_id, merchant_id, 
+      payment_way, payer_id, currency, 
+      order_amount, settle_amount, paid_amount, 
+      payment_service_code, order_status, settle_date, 
+      settle_batch_no, settle_status, balance_status, 
+      account_status, return_url, notify_url, 
+      input_charset, version, sign_type, 
+      language, ext, notify_status, 
+      lock_status, refund_status, order_time, 
+      effective_time, paid_time, notify_time, 
+      cancel_time, create_time, last_deal_time
+      )
+    values (#{orderId,jdbcType=CHAR}, #{merchantOrderId,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
+      #{paymentWay,jdbcType=CHAR}, #{payerId,jdbcType=CHAR}, #{currency,jdbcType=CHAR}, 
+      #{orderAmount,jdbcType=DECIMAL}, #{settleAmount,jdbcType=DECIMAL}, #{paidAmount,jdbcType=DECIMAL}, 
+      #{paymentServiceCode,jdbcType=CHAR}, #{orderStatus,jdbcType=CHAR}, #{settleDate,jdbcType=DATE}, 
+      #{settleBatchNo,jdbcType=CHAR}, #{settleStatus,jdbcType=CHAR}, #{balanceStatus,jdbcType=CHAR}, 
+      #{accountStatus,jdbcType=CHAR}, #{returnUrl,jdbcType=VARCHAR}, #{notifyUrl,jdbcType=VARCHAR}, 
+      #{inputCharset,jdbcType=CHAR}, #{version,jdbcType=CHAR}, #{signType,jdbcType=CHAR}, 
+      #{language,jdbcType=CHAR}, #{ext,jdbcType=VARCHAR}, #{notifyStatus,jdbcType=CHAR}, 
+      #{lockStatus,jdbcType=CHAR}, #{refundStatus,jdbcType=CHAR}, #{orderTime,jdbcType=TIMESTAMP}, 
+      #{effectiveTime,jdbcType=TIMESTAMP}, #{paidTime,jdbcType=TIMESTAMP}, #{notifyTime,jdbcType=TIMESTAMP}, 
+      #{cancelTime,jdbcType=TIMESTAMP}, #{createTime,jdbcType=TIMESTAMP}, #{lastDealTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  
+</mapper>

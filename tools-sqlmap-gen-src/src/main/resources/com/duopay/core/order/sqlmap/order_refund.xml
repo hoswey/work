@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duopay.core.order.entity.orderRefund" >
+  
+  <sql id="table" >
+    order_refund
+  </sql>
+  
+  <sql id="all_columns" >
+    order_id, total_refund_amount, create_time, last_refund_time, refund_count, merchant_order_id, 
+    merchant_id
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultType="com.duopay.core.order.entity.orderRefund" parameterType="java.lang.String" >
+    select <include refid="all_columns" />
+    from <include refid="table" />
+    where order_id = #{orderId,jdbcType=CHAR}
+  </select>
+  
+  <select id="list" resultType="com.duopay.core.order.entity.orderRefund" parameterType="map" >
+    select <include refid="all_columns" />
+    from <include refid="table" />
+    <where >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=CHAR},
+      </if>
+      <if test="totalRefundAmount != null" >
+        total_refund_amount = #{totalRefundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRefundTime != null" >
+        last_refund_time = #{lastRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundCount != null" >
+        refund_count = #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="merchantOrderId != null" >
+        merchant_order_id = #{merchantOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+    </where>
+  </select>
+  
+  <update id="updateByPrimaryKey" parameterType="com.duopay.core.order.entity.orderRefund" >
+    update <include refid="table" />
+    <set >
+      <if test="totalRefundAmount != null" >
+        total_refund_amount = #{totalRefundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastRefundTime != null" >
+        last_refund_time = #{lastRefundTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="refundCount != null" >
+        refund_count = #{refundCount,jdbcType=INTEGER},
+      </if>
+      <if test="merchantOrderId != null" >
+        merchant_order_id = #{merchantOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null" >
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=CHAR}
+  </update>
+  
+  <insert id="insert" parameterType="com.duopay.core.order.entity.orderRefund" >
+    insert into order_refund (order_id, total_refund_amount, create_time, 
+      last_refund_time, refund_count, merchant_order_id, 
+      merchant_id)
+    values (#{orderId,jdbcType=CHAR}, #{totalRefundAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{lastRefundTime,jdbcType=TIMESTAMP}, #{refundCount,jdbcType=INTEGER}, #{merchantOrderId,jdbcType=VARCHAR}, 
+      #{merchantId,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

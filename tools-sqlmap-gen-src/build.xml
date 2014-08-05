@@ -1,0 +1,50 @@
+<project default="genfiles" basedir=".">
+	<property file="${basedir}/build.properties" />
+	<property name="generated.java.dir" value="./src/java" />
+	<property name="generated.resources.dir" value="./src/main/resources" />
+
+	<path id="all_lib">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path> 
+
+	<target name="genfiles" description="Generate the files">
+
+		<taskdef name="mbgenerator" classname="org.mybatis.generator.ant.GeneratorAntTask" classpath="./bin" />
+		<mbgenerator overwrite="true" configfile="config/generatorConfig.xml" verbose="false">
+			<propertyset>
+				<propertyref name="generated.java.dir" />
+				<propertyref name="generated.resources.dir" />
+			</propertyset>
+		</mbgenerator>
+	</target>
+
+
+	<target name="jar" depends="compile">
+		<mkdir dir="${build.classes}/META-INF/" />
+		<jar destfile="${build.dir}/${dist.name}.jar" basedir="${build.classes}" />
+		<zip destfile="${build.dir}/${dist.name}-src.zip">
+			<fileset dir="src/java" includes="**/*.java" />
+		</zip>
+	</target>
+
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${build.classes}" />
+		<javac destdir="${build.classes}" target="${compile.level}" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}" failonerror="true" encoding="${build.encoding}" includeantruntime="${build.includeantruntime}">
+			<src path="${src.dir}" />
+			<classpath refid="all_lib" />
+		</javac>
+
+		<copy todir="${build.classes}" overwrite="true">
+			<fileset dir="${src.dir}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="clean">
+		<delete dir="${build.dir}" />
+	</target>
+</project>
