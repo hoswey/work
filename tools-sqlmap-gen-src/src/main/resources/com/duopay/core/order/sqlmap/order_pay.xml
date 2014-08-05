@@ -277,6 +277,11 @@
     where order_id = #{orderId,jdbcType=CHAR}
   </update>
   
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from order_pay
+    where order_id = #{orderId,jdbcType=CHAR}
+  </delete>
+  
   <insert id="insert" parameterType="com.duopay.core.order.entity.OrderPay" >
     insert into order_pay (order_id, merchant_order_id, merchant_id, 
       payment_way, payer_id, currency, 
