@@ -4,7 +4,7 @@
  * Company:   System                                                           
  * @author:   System                                                           
  * @version:  1.0                                                              
- * Create at: 2014年08月04日                                                    
+ * Create at: 2014年08月05日                                                    
  *                                                                             
  */                                                                            
 package com.duopay.core.order.entity;
